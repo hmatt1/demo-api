@@ -22,4 +22,9 @@ public class HelloController {
 		return redisRepository.getValue()
 				.thenApply(value -> value.orElse("missing"));
 	}
+
+	@Get("/bye")
+	public CompletableFuture<String> getBye() {
+		return CompletableFuture.completedFuture("bye");
+	}
 }

@@ -26,4 +26,13 @@ public class HelloTest {
 		assertNotNull(body);
 		assertEquals("missing", body);
 	}
+
+    @Test
+    public void testBye() {
+        HttpRequest<String> request = HttpRequest.GET("/bye");
+        String body = client.toBlocking().retrieve(request);
+
+        assertNotNull(body);
+        assertEquals("bye", body);
+    }
 }
