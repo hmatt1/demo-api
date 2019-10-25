@@ -4,3 +4,9 @@ services:
     image: redis:alpine
     ports:
       - '6379:6379'
+  demoapi:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '8080:8080'

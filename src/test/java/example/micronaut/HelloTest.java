@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-@MicronautTest
+@MicronautTest(environments="test")
 public class HelloTest {
 
 	@Inject

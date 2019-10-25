@@ -3,6 +3,7 @@ micronaut:
     name: redis
 
 redis:
+  uri: redis://redis
   caches:
     application:
       expire-after-write: 2d
