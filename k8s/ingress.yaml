@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hmatt1-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+spec:
+  tls:
+    - hosts: [hmatt1.kuber.host]
+      secretName: hmatt1-kuber-host-tls
+  rules:
+  - host: hmatt1.kuber.host
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: demoapi
+          servicePort: 8080
