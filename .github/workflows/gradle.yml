@@ -19,18 +19,16 @@ jobs:
       with:
        version: 'v3.0.0-beta.5'
       id: install
-    - name: Check helm version
-      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm version
-    - name: Check helm ls
-      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm ls
     - name: kube contexts
-      run: kubectl config get-contexts
-    - name: Deploy to k8s
-      run: echo $SECRET_CONFIG > ~/config && /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm -n $NAMESPACE ls
+      run: echo $SECRET_CONFIG > ~/config && chmod 544 ~/config && ls -la ~/config && kubectl config get-contexts
       env:
         KUBE_CONFIG: ~/config
         SECRET_CONFIG:  ${{ secrets.KUBE_CONFIG }}
         NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+    - name: Check helm version
+      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm3 version
+    - name: Check helm ls
+      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm3 ls
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build the Docker image
