@@ -20,10 +20,15 @@ jobs:
        version: 'v3.0.0-beta.5'
       id: install
     - name: kube contexts
-      run: echo $SECRET_CONFIG > ~/config && chmod 544 ~/config && ls -la ~/config && kubectl config get-contexts
+      run: | 
+        echo $SECRET_CONFIG > ~/config
+        chmod 544 ~/config
+        ls -la ~/config
+        kubectl config get-contexts
+        kubectl get po
       env:
-        KUBE_CONFIG: ~/config
-        SECRET_CONFIG:  ${{ secrets.KUBE_CONFIG }}
+        KUBECONFIG: ~/config
+        SECRET_CONFIG: ${{ secrets.KUBE_CONFIG }}
         NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
     - name: Check helm version
       run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm3 version
