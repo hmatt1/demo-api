@@ -30,10 +30,8 @@ jobs:
         KUBECONFIG: /home/runner/config
         SECRET_CONFIG: ${{ secrets.KUBE_CONFIG }}
         NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
-    - name: Check helm version
-      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm3 version
     - name: Check helm ls
-      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm3 ls
+      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm ls
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build the Docker image
@@ -44,4 +42,5 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
+    - name: Deploy to k8s
+      run: ./helm-deploy.sh
