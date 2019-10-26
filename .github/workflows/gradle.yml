@@ -14,6 +14,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Set up Helm 3
+      uses: azure/setup-helm@v1
+      with:
+       version: '3.0.0-beta.5'
+      id: install
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build the Docker image
@@ -24,3 +29,5 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Deploy
+      run: helm version
