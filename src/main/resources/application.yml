@@ -3,7 +3,7 @@ micronaut:
     name: redis
 
 redis:
-  uri: redis://redis-release-master
+  uri: redis://${REDIS_PASSWORD}@redis-release-master
   caches:
     application:
       expire-after-write: 2d
