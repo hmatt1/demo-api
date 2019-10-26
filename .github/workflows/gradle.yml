@@ -29,10 +29,9 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Configure Deploy
-      run: echo $SECRET_CONFIG > ~/config && /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm version
+    - name: Deploy to k8s
+      run: echo $SECRET_CONFIG > /tmp/config && /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm --kubeconfig /tmp/config-n $NAMESPACE ls
       env:
         KUBE_CONFIG: ~/config
         SECRET_CONFIG:  ${{ secrets.KUBE_CONFIG }}
-    - name: Deploy to k8s
-      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm ls
+        NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
