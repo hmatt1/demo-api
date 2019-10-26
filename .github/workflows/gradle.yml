@@ -21,7 +21,7 @@ jobs:
       id: install
     - name: kube contexts
       run: | 
-        echo $SECRET_CONFIG > /home/runner/config
+        echo "$SECRET_CONFIG" > /home/runner/config
         chmod 544 /home/runner/config
         ls -la /home/runner/config
         kubectl config get-contexts
