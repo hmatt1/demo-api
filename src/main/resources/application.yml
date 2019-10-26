@@ -4,7 +4,6 @@ micronaut:
 
 redis:
   uri: redis://${REDIS_PASSWORD}@redis-release-master
-  password: ${REDIS_PASSWORD}
   caches:
     application:
       expire-after-write: 2d
