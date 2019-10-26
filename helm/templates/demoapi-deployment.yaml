@@ -19,7 +19,7 @@ spec:
         io.kompose.service: demoapi
     spec:
       containers:
-      - image: hmatt1/demo-api:1.0
+      - image: "hmatt1/demo-api:{{ .Values.tag }}"
         name: demoapi
         ports:
         - containerPort: 8080
