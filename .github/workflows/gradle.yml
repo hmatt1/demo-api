@@ -19,8 +19,16 @@ jobs:
       with:
        version: 'v3.0.0-beta.5'
       id: install
-    - name: Check helm ls
-      run: /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm ls
+    - name: Deploy to k8s
+      run: | 
+        echo "$SECRET_CONFIG" > /home/runner/config
+        kubectl config get-contexts
+        kubectl get po
+        /opt/hostedtoolcache/helm/3.0.0-beta.5/x64/linux-amd64/helm upgrade --atomic -n $NAMESPACE demo-api helm
+      env:
+        KUBECONFIG: /home/runner/config
+        SECRET_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build the Docker image
@@ -31,13 +39,3 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Deploy to k8s
-      run: | 
-        echo "$SECRET_CONFIG" > /home/runner/config
-        kubectl config get-contexts
-        kubectl get po
-        ./helm-deploy.sh
-      env:
-        KUBECONFIG: /home/runner/config
-        SECRET_CONFIG: ${{ secrets.KUBE_CONFIG }}
-        NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
