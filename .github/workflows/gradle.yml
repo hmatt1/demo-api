@@ -21,13 +21,13 @@ jobs:
       id: install
     - name: kube contexts
       run: | 
-        echo $SECRET_CONFIG > ~/config
-        chmod 544 ~/config
-        ls -la ~/config
+        echo $SECRET_CONFIG > /home/runner/config
+        chmod 544 /home/runner/config
+        ls -la /home/runner/config
         kubectl config get-contexts
         kubectl get po
       env:
-        KUBECONFIG: ~/config
+        KUBECONFIG: /home/runner/config
         SECRET_CONFIG: ${{ secrets.KUBE_CONFIG }}
         NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
     - name: Check helm version
