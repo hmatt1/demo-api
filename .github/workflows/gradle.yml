@@ -17,7 +17,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag hmatt1/demo-api:${GITHUB_SHA:0:8} && docker push hmatt1/demo-api:${GITHUB_SHA:0:8}
+      run: 
+          docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+          docker build . --file Dockerfile --tag hmatt1/demo-api:${GITHUB_SHA:0:8}
+          docker push hmatt1/demo-api:${GITHUB_SHA:0:8}
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
