@@ -16,5 +16,9 @@ jobs:
         java-version: 11
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Test
+      run: echo ${GITHUB_SHA:0:8} && echo $GITHUB_ACTION && echo $DOCKER_USERNAME
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag demo-api:$(date +%s)
+      run: docker build . --file Dockerfile --tag hmatt1/demo-api:latest && docker push hmatt1/demo-api:latest
