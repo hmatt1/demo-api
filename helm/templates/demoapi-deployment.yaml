@@ -25,7 +25,7 @@ spec:
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: demo-api-secrets
+              name: demo-api-secret
               key: REDIS_PASSWORD
         ports:
         - containerPort: 8080
