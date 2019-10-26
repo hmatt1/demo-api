@@ -21,12 +21,12 @@ spec:
       containers:
       - image: "hmatt1/demo-api:{{ .Values.tag }}"
         name: demoapi
-#        env:
-#        - name: REDIS_PASSWORD
-#          valueFrom:
-#            secretKeyRef:
-#              name: demo-api-secret
-#              key: REDIS_PASSWORD
+        env:
+        - name: MY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: demo-api-secret
+              key: REDIS_PASSWORD
         ports:
         - containerPort: 8080
         resources:
