@@ -7,9 +7,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Set up JDK 11
@@ -18,3 +16,5 @@ jobs:
         java-version: 11
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag demo-api:$(date +%s)
